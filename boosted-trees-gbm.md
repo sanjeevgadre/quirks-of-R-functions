@@ -1,25 +1,28 @@
+Boosted Tree Ensemble for Classification
+========================================
+
 The library `gbm` offers the `gbm()` function to build models using the
 **Boosted Trees Ensemble** method. `gbm()` uses the familiar construct:
 
-`fit = func_name(dep_var ~ pred_vars, data = dat, ....)`;
+`fit = func_name(response ~ terms, data = dat, ....)`;
 
 which in this case is:
 
-`fit = gbm(dep_var ~ pred_vars, data = dat, ....)`
+`fit = gbm(response ~ terms, data = dat, ....)`
 
-1.  Unlike other similar functions, `gbm()` explicitly expects `dep_var`
-    be `numerical`. This quirk adds an extra step when using `gbm()` to
-    fit *classification tree ensemble* model. Consequently, `dep_var`,
-    which usually is a `factor` variable when fitting a classification
-    tree ensemble, needs to be converted to a `numerical` variable
-    before fitting the model.
+1.  Unlike other similar functions, `gbm()` explicitly expects
+    `response` be `numerical`. This quirk adds an extra step when using
+    `gbm()` to fit *classification tree ensemble* model. Consequently,
+    `response`, which usually is a `factor` variable when fitting a
+    classification tree ensemble, needs to be converted to a `numerical`
+    variable before fitting the model.
 
 *SAMPLE CODE:*
 
     library(gbm)
 
-    train$dep_var = as.numeric(levels(train$dep_var))[train$dep_var]
-    fit = gbm(dep_var ~ pred_vars, data = train, ....)
+    train$response = as.numeric(levels(train$response))[train$response]
+    fit = gbm(response ~ terms, data = train, ....)
 
 1.  The `predict.gbm()` function when used with a classification tree
     ensemble fit, does not return either the predicted class or the
